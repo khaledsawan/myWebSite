@@ -43,7 +43,6 @@ dependencies:
   simple_icons: ^7.10.0
   url_launcher: ^6.1.5
   google_fonts: ^3.0.1
-  salomon_bottom_bar: ^3.3.1
   flutter_staggered_animations: any
 
 dev_dependencies:

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mysitev1/view/web/home_page.dart';
+
+import 'view/phone/home_page_phone.dart';
+import 'view/responsive.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(),
        debugShowCheckedModeBanner: false,
        themeMode:ThemeMode.dark,
-       home:  const HomePage(),
+       home: Responsive(),
     );
   }
 }

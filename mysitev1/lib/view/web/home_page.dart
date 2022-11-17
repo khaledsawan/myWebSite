@@ -278,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                                     iconBackColor: AppColors.mainColor,
                                     textColor: AppColors.green1,
                                     icon: Icons.contact_phone,
-                                    text: '+963 0967194204',
+                                    text: '+963 0967184204',
                                     color: AppColors.blue),
                               ),
                             ),

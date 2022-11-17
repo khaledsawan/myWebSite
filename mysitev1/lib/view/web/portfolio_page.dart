@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mysitev1/utils/colors.dart';
 
-
-
 class PortfolioPage extends StatelessWidget {
-   PortfolioPage({super.key});
+  PortfolioPage({super.key});
 
-  List<String> list=[
+  List<String> list = [
     'https://i.ibb.co/18QtZcZ/about-us.png',
     'https://i.ibb.co/SBTXBVH/Screenshot.jpg',
     'https://i.ibb.co/zHPqfTg/Screenshot.jpg',
@@ -46,39 +44,38 @@ class PortfolioPage extends StatelessWidget {
     'https://i.ibb.co/B2nVsSr/Screenshot-20220615-152827.png',
     'https://i.ibb.co/gM5PWx9/Screenshot-20220615-152912.png',
     'https://i.ibb.co/wcGzRBm/Screenshot-20220615-153033.png',
-
-
   ];
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     int columnCount = 2;
 
-    return  AnimationLimiter(
+    return AnimationLimiter(
       child: GridView.count(
-        physics:
-        const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         padding: EdgeInsets.all(w / 60),
         crossAxisCount: columnCount,
         children: List.generate(
           list.length,
-              (int index) {
+          (int index) {
             return AnimationConfiguration.staggeredGrid(
               position: index,
-              duration:const Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 500),
               columnCount: columnCount,
               child: ScaleAnimation(
-                duration:const Duration(milliseconds: 900),
+                duration: const Duration(milliseconds: 900),
                 curve: Curves.fastLinearToSlowEaseIn,
                 child: FadeInAnimation(
                   child: Container(
                     margin: const EdgeInsets.all(20),
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: AppColors.mainColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                     image: DecorationImage(image: NetworkImage(list[index]))
-                    ),
+                        color: AppColors.mainColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        image:
+                            DecorationImage(image: NetworkImage(list[index]))),
                   ),
                 ),
               ),
