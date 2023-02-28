@@ -7,6 +7,18 @@ class MyProjectsPage extends StatelessWidget {
   MyProjectsPage({super.key});
   List<ProjectModel> list = [
     ProjectModel(
+        title: 'Mashawiri ',
+        description:
+        'Mashawiri is a transportation company that has an app that allows riders to relay rides and drivers to charge fares and get paid. More specifically, Al Mashawry is a shared transportation company that hires independent contractors as drivers. It is one of the many services that today contribute to the sharing economy, providing a way to connect existing resources rather than providing the physical resources themselves. ,',
+        image: 'image/mashawiri logo.jpg',
+        url: 'https://play.google.com/store/apps/details?id=com.ma.ma_app_client'),
+    ProjectModel(
+        title: 'Mashawiri Driver',
+        description:
+        'An application for the driver of the transportation system that allows him to take trips to customers in the customer application ,',
+        image: 'image/unnamed.webp',
+        url: 'https://play.google.com/store/apps/details?id=com.ma.ma_app_driver'),
+    ProjectModel(
         title: 'Memo Night',
         description:
             'Note for Android application and Web using Flutter and Firebase ,',
@@ -18,7 +30,7 @@ class MyProjectsPage extends StatelessWidget {
             'Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses Online Courses for all Students , Contained Teacher App for management Courses'
             ', also there is Admin panel but (Android apk) for management all System...',
         image: 'image/electronic school.png',
-        url: 'https://github.com/khaledsawan/Online-Courses'),
+        url: 'https://github.com/khaledsawan/onLine-school'),
     ProjectModel(
         title: 'Hungry!',
         description:

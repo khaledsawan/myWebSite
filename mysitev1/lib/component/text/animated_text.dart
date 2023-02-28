@@ -1,7 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mysitev1/utils/colors.dart';
+
+import '../../utils/colors.dart';
 
 class animatedText extends StatefulWidget {
   late String text;

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mysitev1">
    <application
-        android:label="mysitev1"
+        android:label="khaledsawan"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

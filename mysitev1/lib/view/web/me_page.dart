@@ -64,7 +64,7 @@ class MePageState extends State<MePage> {
             child: Text(
                 textAlign: TextAlign.start,
                 maxLines: 100,
-                'My name is Khaled Sawan. I am from Syria, Damascus. I was born on 07/01/2000. I study at the Faculty of Informatics Engineering at Damascus University, majoring in Software Engineering and Information Systems, in the fourth year. ',
+                'My name is Khaled Sawan. I am from Syria Damascus. I was born on 07/01/2000. I study at the Faculty of Informatics Engineering at Damascus University, majoring in Software Engineering and Information Systems, in the fourth year. ',
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,

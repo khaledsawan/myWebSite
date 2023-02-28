@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mysitev1/view/web/home_page.dart';
-
-import 'view/phone/home_page_phone.dart';
 import 'view/responsive.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -11,11 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Khaled Sawan',
       theme: ThemeData.dark(),
        debugShowCheckedModeBanner: false,
        themeMode:ThemeMode.dark,
-       home: Responsive(),
+       home: const Responsive(),
     );
   }
 }

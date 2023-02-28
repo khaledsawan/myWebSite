@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:mysitev1/utils/colors.dart';
 
-
+import '../../utils/colors.dart';
 
 class PortfolioPagePhone extends StatelessWidget {
   PortfolioPagePhone({super.key});

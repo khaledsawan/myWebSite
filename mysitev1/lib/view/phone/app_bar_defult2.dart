@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mysitev1/component/text/animated_text.dart';
-import 'package:mysitev1/view/phone/contact_phone.dart';
-import 'package:mysitev1/view/phone/my_projects_page_phone.dart';
-import 'package:mysitev1/view/phone/portfolio_page_phone.dart';
-import 'package:mysitev1/view/web/my_projects_page.dart';
-import 'package:mysitev1/view/web/portfolio_page.dart';
-
-import '../../view/web/me_page.dart';
+import 'package:khaledsawan/view/phone/portfolio_page_phone.dart';
+import '../../component/text/animated_text.dart';
+import 'contact_phone.dart';
 import 'me_page_phone.dart';
+import 'my_projects_page_phone.dart';
 
 class TapBarDefault2 extends StatefulWidget {
   const TapBarDefault2({super.key});

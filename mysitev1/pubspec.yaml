@@ -1,4 +1,4 @@
-name: mysitev1
+name: khaledsawan
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -44,6 +44,7 @@ dependencies:
   url_launcher: ^6.1.5
   google_fonts: ^3.0.1
   flutter_staggered_animations: any
+  rename: ^2.1.1
 
 dev_dependencies:
   flutter_test:

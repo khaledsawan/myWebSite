@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mysitev1/component/text/animated_text.dart';
-import 'package:mysitev1/view/web/my_projects_page.dart';
-import 'package:mysitev1/view/web/portfolio_page.dart';
-
 import '../../view/web/me_page.dart';
+import '../../view/web/my_projects_page.dart';
+import '../../view/web/portfolio_page.dart';
+import '../text/animated_text.dart';
 
 class TapBarDefault extends StatefulWidget {
   @override
@@ -23,7 +22,6 @@ class _TapBarDefaultState extends State<TapBarDefault>
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

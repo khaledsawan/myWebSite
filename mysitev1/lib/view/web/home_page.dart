@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _sendingMails() async {
-    var url = Uri.parse("mailto:khaled963sawan@gmail.com@email.com");
+    var url = Uri.parse("mailto:khaled963sawan@gmail.com");
     if (await canLaunchUrl(url)) {
       await launchUrl(url);
     } else {
