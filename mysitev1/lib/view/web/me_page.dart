@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:khaledsawan/api/base_repo.dart';
 import '../../utils/colors.dart';
+import 'package:get/get.dart';
+import '../../utils/responsive.dart';
 
 class MePage extends StatefulWidget {
   const MePage({super.key});
-
   @override
   MePageState createState() => MePageState();
 }
@@ -13,352 +15,292 @@ class MePageState extends State<MePage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(10, 40, 0, 20),
-            alignment: Alignment.topLeft,
-            child: const SlideFadeTransition(
-              curve: Curves.elasticOut,
-              delayStart: Duration(milliseconds: 300),
-              animationDuration: Duration(milliseconds: 800),
-              offset: 2.5,
-              direction: Direction.horizontal,
-              child: Text('Hello!',
-                  style: TextStyle(
-                      fontSize: 34,
-                      color: AppColors.textColor,
-                      shadows: [
-                        Shadow(color: AppColors.white, offset: Offset(0.4, 0.1))
-                      ])),
+        child: GetBuilder<BaseRepo>(builder: (controller) {
+      return controller.isLoading
+          ? Container()
+          : Column(
+              children: [
+                _buildGreeting(width, controller),
+                const SizedBox(height: 25),
+                _buildIntroduction(width, controller),
+                const Divider(),
+                const SizedBox(height: 30),
+                _buildSkills(width, controller),
+                const SizedBox(height: 15),
+                _buildAdditionalSkills(controller),
+                const SizedBox(height: 30),
+                _buildSoftSkills(width, controller),
+                const SizedBox(height: 30),
+                _buildActivitiesAndInterests(controller),
+                const SizedBox(height: 30),
+                _buildFooter(controller),
+                const Divider(),
+              ],
+            );
+    }));
+  }
+
+  Widget _buildGreeting(double width, BaseRepo controller) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(10, 30, 0, 10),
+      alignment: Alignment.topLeft,
+      child: SlideFadeTransition(
+        curve: Curves.elasticOut,
+        delayStart: const Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 800),
+        offset: 2.5,
+        direction: Direction.horizontal,
+        child: Text(
+          controller.profileData.title!,
+          style: TextStyle(
+            fontSize: const AdaptiveTextSize().getadaptiveTextSize(context, 26),
+            color: AppColors.textColor,
+            shadows: const [
+              Shadow(color: AppColors.white, offset: Offset(0.4, 0.1))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIntroduction(double width, BaseRepo controller) {
+    return Container(
+      alignment: Alignment.topLeft,
+      margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+      child: SlideFadeTransition(
+        curve: Curves.elasticOut,
+        delayStart: const Duration(milliseconds: 800),
+        animationDuration: const Duration(milliseconds: 800),
+        offset: 2.5,
+        direction: Direction.vertical,
+        child: Text(
+          controller.profileData.supTitle!,
+          style: TextStyle(
+            fontSize: const AdaptiveTextSize().getadaptiveTextSize(context, 24),
+            color: AppColors.textColor,
+            shadows: const [
+              Shadow(color: AppColors.white, offset: Offset(0.4, 0.1))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkills(double width, BaseRepo controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: _buildSkillDescription(
+            controller.profileData.body!,
+            width,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSkillDescription(String text, double width) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(10, 5, 0, 5),
+      width: width * 0.7 - 95,
+      child: SlideFadeTransition(
+        curve: Curves.elasticOut,
+        delayStart: const Duration(milliseconds: 900),
+        animationDuration: const Duration(milliseconds: 700),
+        offset: 2.5,
+        direction: Direction.vertical,
+        child: Text(
+          text,
+          textAlign: TextAlign.start,
+          maxLines: 100,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize:
+                  const AdaptiveTextSize().getadaptiveTextSize(context, 16),
+              fontStyle: FontStyle.italic),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAdditionalSkills(BaseRepo controller) {
+    String text = controller.profileData.skills!;
+    List<String> wordList = text.split(',');
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SlideFadeTransition(
+          curve: Curves.elasticOut,
+          delayStart: const Duration(milliseconds: 900),
+          animationDuration: const Duration(milliseconds: 700),
+          offset: 2.5,
+          direction: Direction.vertical,
+          child: Text(
+            'Skills',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize:
+                  const AdaptiveTextSize().getadaptiveTextSize(context, 20),
+              fontStyle: FontStyle.normal,
+              color: AppColors.orangeend,
             ),
           ),
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: const SlideFadeTransition(
-              curve: Curves.elasticOut,
-              delayStart: Duration(milliseconds: 800),
-              animationDuration: Duration(milliseconds: 800),
-              offset: 2.5,
-              direction: Direction.vertical,
-              child: Text('Welcome to my webSite ...',
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: AppColors.textColor,
-                      shadows: [
-                        Shadow(color: AppColors.white, offset: Offset(0.4, 0.1))
-                      ])),
-            ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          SlideFadeTransition(
+        ),
+       
+        Container(
+          padding: const EdgeInsets.all(12),
+          child: SlideFadeTransition(
             curve: Curves.elasticOut,
             delayStart: const Duration(milliseconds: 1000),
             animationDuration: const Duration(milliseconds: 800),
             offset: 2.5,
             direction: Direction.vertical,
-            child: Text(
-                textAlign: TextAlign.start,
-                maxLines: 100,
-                'My name is Khaled Sawan. I am from Syria Damascus. I was born on 07/01/2000. I study at the Faculty of Informatics Engineering at Damascus University, majoring in Software Engineering and Information Systems, in the fourth year. ',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white.withOpacity(0.7))),
-          ),
-          const Divider(),
-          const SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SlideFadeTransition(
-                curve: Curves.elasticOut,
-                delayStart: Duration(milliseconds: 900),
-                animationDuration: Duration(milliseconds: 700),
-                offset: 2.5,
-                direction: Direction.vertical,
-                child: Text(
-                    textAlign: TextAlign.center,
-                    maxLines: 100,
-                    'Skills:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 26,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.orangeend)),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-                    width: width * 0.7 - 95,
-                    child: const SlideFadeTransition(
-                      curve: Curves.elasticOut,
-                      delayStart: Duration(milliseconds: 900),
-                      animationDuration: Duration(milliseconds: 700),
-                      offset: 2.5,
-                      direction: Direction.vertical,
-                      child: Text(
-                          textAlign: TextAlign.start,
-                          maxLines: 100,
-                          'Full stack developer with Flutter & Android native Java as Frontend ,',
-                          style: TextStyle(
-                              fontSize: 18, fontStyle: FontStyle.normal)),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-                    width: width * 0.7 - 95,
-                    child: const SlideFadeTransition(
-                      curve: Curves.elasticOut,
-                      delayStart: Duration(milliseconds: 900),
-                      animationDuration: Duration(milliseconds: 700),
-                      offset: 2.5,
-                      direction: Direction.vertical,
-                      child: Text(
-                          textAlign: TextAlign.start,
-                          maxLines: 100,
-                          'PHP framework , Laravel & Firebase as backend, fast Understanding business ',
-                          style: TextStyle(
-                              fontSize: 18, fontStyle: FontStyle.normal)),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-                    width: width * 0.7 - 95,
-                    child: const SlideFadeTransition(
-                      curve: Curves.elasticOut,
-                      delayStart: Duration(milliseconds: 900),
-                      animationDuration: Duration(milliseconds: 700),
-                      offset: 2.5,
-                      direction: Direction.vertical,
-                      child: Text(
-                          textAlign: TextAlign.start,
-                          maxLines: 100,
-                          'requirements and translating them to them Technical and functional requirements.',
-                          style: TextStyle(
-                              fontSize: 18, fontStyle: FontStyle.normal)),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            padding: const EdgeInsets.all(20),
-            child: SlideFadeTransition(
-              curve: Curves.elasticOut,
-              delayStart: const Duration(milliseconds: 1000),
-              animationDuration: const Duration(milliseconds: 800),
-              offset: 2.5,
-              direction: Direction.vertical,
-              child: Column(
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      '• Knowledge in using AdobeXd and Transfer Design to programming view making Customer Happy.',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('• Using Git and work with Team (Github & Gitlab).',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('• Basic knowledge of agile Environment (scrum).',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                      '• Knowledge of programming languages such as C, C++, Java, PHP.',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('• Testing System with specific Tools.',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('• Deploy Apps to Google play & AppStore.',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Text('• Deploy Laravel applications to production.',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontStyle: FontStyle.italic,
-                          color: Colors.white.withOpacity(0.5))),
-                ],
-              ),
+                children: List.generate(wordList.length, (index) {
+                  return _buildAdditionalSkillDescription(wordList[index]);
+                })),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAdditionalSkillDescription(String text) {
+    return Text(
+      text,
+      textAlign: TextAlign.start,
+      style: TextStyle(
+        fontSize: const AdaptiveTextSize().getadaptiveTextSize(context, 16),
+        fontStyle: FontStyle.italic,
+        color: Colors.white.withOpacity(0.5),
+      ),
+    );
+  }
+
+  Widget _buildSoftSkills(double width, BaseRepo controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        SlideFadeTransition(
+          curve: Curves.elasticOut,
+          delayStart: const Duration(milliseconds: 900),
+          animationDuration: const Duration(milliseconds: 700),
+          offset: 2.5,
+          direction: Direction.vertical,
+          child: Text(
+            'SOFT SKILLS',
+            style: TextStyle(
+              fontSize:
+                  const AdaptiveTextSize().getadaptiveTextSize(context, 18),
+              fontStyle: FontStyle.normal,
+              color: AppColors.textGreen,
             ),
           ),
-          const SizedBox(
-            height: 50,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: SlideFadeTransition(
+            curve: Curves.elasticOut,
+            delayStart: const Duration(milliseconds: 900),
+            animationDuration: const Duration(milliseconds: 700),
+            offset: 2.5,
+            direction: Direction.vertical,
+            child: Text(
+              controller.profileData.softSkills!,
+              maxLines: 4,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize:
+                      const AdaptiveTextSize().getadaptiveTextSize(context, 12),
+                  fontStyle: FontStyle.italic),
+            ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              const SlideFadeTransition(
-                curve: Curves.elasticOut,
-                delayStart: Duration(milliseconds: 900),
-                animationDuration: Duration(milliseconds: 700),
-                offset: 2.5,
-                direction: Direction.vertical,
-                child: Text(
-                    textAlign: TextAlign.center,
-                    maxLines: 100,
-                    'SOFT SKILLS:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.textGreen)),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-                width: width * 0.7 - 195,
-                child: const SlideFadeTransition(
-                  curve: Curves.elasticOut,
-                  delayStart: Duration(milliseconds: 900),
-                  animationDuration: Duration(milliseconds: 700),
-                  offset: 2.5,
-                  direction: Direction.vertical,
-                  child: Text(
-                      textAlign: TextAlign.start,
-                      maxLines: 100,
-                      'COMMUNICATIONS _ OPEN-MINDEDNESS _ PROBLEM-SOLVING _ CRITICAL THINKING _ ACCOUNTABILITY _ ADAPTABILITY',
-                      style:
-                          TextStyle(fontSize: 18, fontStyle: FontStyle.normal)),
-                ),
-              ),
-            ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActivitiesAndInterests(BaseRepo controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        SlideFadeTransition(
+          curve: Curves.elasticOut,
+          delayStart: const Duration(milliseconds: 900),
+          animationDuration: const Duration(milliseconds: 700),
+          offset: 2.5,
+          direction: Direction.vertical,
+          child: Text(
+            'ACTIVITIES AND INTERESTS',
+            style: TextStyle(
+              fontSize:
+                  const AdaptiveTextSize().getadaptiveTextSize(context, 14),
+              fontStyle: FontStyle.normal,
+              color: AppColors.green01,
+            ),
           ),
-          const SizedBox(
-            height: 50,
+        ),
+        const SizedBox(width: 10),
+        SlideFadeTransition(
+          curve: Curves.elasticOut,
+          delayStart: const Duration(milliseconds: 900),
+          animationDuration: const Duration(milliseconds: 700),
+          offset: 2.5,
+          direction: Direction.vertical,
+          child: Text(
+            controller.profileData.activies!,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize:
+                    const AdaptiveTextSize().getadaptiveTextSize(context, 12),
+                fontStyle: FontStyle.italic),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              const SlideFadeTransition(
-                curve: Curves.elasticOut,
-                delayStart: Duration(milliseconds: 900),
-                animationDuration: Duration(milliseconds: 700),
-                offset: 2.5,
-                direction: Direction.vertical,
-                child: Text(
-                    textAlign: TextAlign.center,
-                    maxLines: 100,
-                    'ACTIVITIES AND INTERESTS:',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        fontStyle: FontStyle.normal,
-                        color: AppColors.green01)),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(10, 5, 0, 5),
-                child: const SlideFadeTransition(
-                  curve: Curves.elasticOut,
-                  delayStart: Duration(milliseconds: 900),
-                  animationDuration: Duration(milliseconds: 700),
-                  offset: 2.5,
-                  direction: Direction.vertical,
-                  child: Text(
-                      textAlign: TextAlign.start,
-                      maxLines: 100,
-                      'Travel  _  Learn&Teach  _  Gaming',
-                      style:
-                          TextStyle(fontSize: 18, fontStyle: FontStyle.normal)),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text('© 2022'),
-              Row(
-                children: const [
-                  Text('Built with '),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Laravel',
-                    style: TextStyle(color: AppColors.red, fontSize: 24),
-                  ),
-                  Text(
-                    '&',
-                    style: TextStyle(color: AppColors.white, fontSize: 24),
-                  ),
-                  Text(
-                    'Flutter',
-                    style: TextStyle(color: AppColors.blue, fontSize: 24),
-                  ),
-                ],
-              )
-            ],
-          ),
-          const Divider(),
-        ],
-      ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFooter(BaseRepo controller) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(controller.profileData.c!),
+        Row(
+          children: const [
+            Text('Built with '),
+            SizedBox(width: 8),
+            Text(
+              'Laravel',
+              style: TextStyle(color: AppColors.red, fontSize: 16),
+            ),
+            Text(
+              '&',
+              style: TextStyle(color: AppColors.white, fontSize: 14),
+            ),
+            Text(
+              'Flutter',
+              style: TextStyle(color: AppColors.blue, fontSize: 16),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -367,15 +309,10 @@ enum Direction { vertical, horizontal }
 
 class SlideFadeTransition extends StatefulWidget {
   final Widget child;
-
   final double offset;
-
   final Curve curve;
-
   final Direction direction;
-
   final Duration delayStart;
-
   final Duration animationDuration;
 
   const SlideFadeTransition({
@@ -384,7 +321,7 @@ class SlideFadeTransition extends StatefulWidget {
     this.offset = 1.0,
     this.curve = Curves.easeIn,
     this.direction = Direction.vertical,
-    this.delayStart = const Duration(seconds: 0),
+    this.delayStart = const Duration(milliseconds: 100),
     this.animationDuration = const Duration(milliseconds: 800),
   });
 
@@ -395,9 +332,7 @@ class SlideFadeTransition extends StatefulWidget {
 class SlideFadeTransitionState extends State<SlideFadeTransition>
     with SingleTickerProviderStateMixin {
   late Animation<Offset> _animationSlide;
-
   late AnimationController _animationController;
-
   late Animation<double> _animationFade;
 
   @override
@@ -424,11 +359,12 @@ class SlideFadeTransitionState extends State<SlideFadeTransition>
       ));
     }
 
-    _animationFade =
-        Tween<double>(begin: -1.0, end: 1.0).animate(CurvedAnimation(
-      curve: widget.curve,
-      parent: _animationController,
-    ));
+    _animationFade = Tween<double>(begin: -1.0, end: 1.0).animate(
+      CurvedAnimation(
+        curve: widget.curve,
+        parent: _animationController,
+      ),
+    );
 
     Timer(widget.delayStart, () {
       _animationController.forward();

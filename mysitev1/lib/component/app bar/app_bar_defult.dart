@@ -5,6 +5,8 @@ import '../../view/web/portfolio_page.dart';
 import '../text/animated_text.dart';
 
 class TapBarDefault extends StatefulWidget {
+  const TapBarDefault({Key? key}) : super(key: key);
+
   @override
   _TapBarDefaultState createState() => _TapBarDefaultState();
 }
@@ -13,10 +15,11 @@ class _TapBarDefaultState extends State<TapBarDefault>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int selectedItem = 0;
+
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -29,15 +32,23 @@ class _TapBarDefaultState extends State<TapBarDefault>
           indicatorColor: Colors.grey,
           tabs: [
             Tab(
-                child: animatedText(
-                    text: 'Home', page: selectedItem == 0 ? true : false)),
+              child: animatedText(
+                text: 'Home',
+                page: selectedItem == 0 ? true : false,
+              ),
+            ),
             Tab(
-                child: animatedText(
-                    text: 'my Projects',
-                    page: selectedItem == 1 ? true : false)),
+              child: animatedText(
+                text: 'My Projects',
+                page: selectedItem == 1 ? true : false,
+              ),
+            ),
             Tab(
-                child: animatedText(
-                    text: 'Portfolio', page: selectedItem == 2 ? true : false))
+              child: animatedText(
+                text: 'Portfolio',
+                page: selectedItem == 2 ? true : false,
+              ),
+            )
           ],
           controller: _tabController,
           indicatorSize: TabBarIndicatorSize.label,
@@ -50,11 +61,10 @@ class _TapBarDefaultState extends State<TapBarDefault>
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children:  [
-              SizedBox(  width: width * 0.7 - 5,
-                  child: const MePage()),
-              MyProjectsPage(),
-              PortfolioPage(),
+            children: [
+              SizedBox( child: const MePage()),
+              const MyProjectsPage(),
+              const PortfolioPage(),
             ],
           ),
         ),
@@ -68,4 +78,3 @@ class _TapBarDefaultState extends State<TapBarDefault>
     super.dispose();
   }
 }
-//default

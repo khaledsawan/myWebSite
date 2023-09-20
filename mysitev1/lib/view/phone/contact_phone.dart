@@ -1,182 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:simple_icons/simple_icons.dart';
+import 'package:get/get.dart';
+import 'package:khaledsawan/api/base_repo.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:simple_icons/simple_icons.dart';
+
 import '../../../component/icon_than_text/icon_than_text.dart';
 import '../../../utils/colors.dart';
+import 'package:khaledsawan/utils/AppConstants.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({Key? key}) : super(key: key);
 
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  Widget _buildContactRow({
+    required BuildContext context,
+    required IconData icon,
+    required String text,
+    required Color iconColor,
+    required Color textColor,
+    required String url,
+  }) {
+    final double width = MediaQuery.of(context).size.width;
+    return InkWell(
+      onTap: () {
+        _launchURL(url);
+      },
+      child: Container(
+        margin:const EdgeInsets.all(4),
+        child: IconThanText(
+          width: width,
+          margin: const EdgeInsets.all(1),
+          sizedWidth: 5,
+          iconColor: iconColor,
+          icon: icon,
+          text: text,
+          color: AppColors.white,
+          textColor: textColor,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    _makingPhoneCall() async {
-      var url = Uri.parse("tel:(+963) 967184204");
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
 
-    _sendingMails() async {
-      var url = Uri.parse("mailto:khaled963sawan@gmail.com");
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
-    _openTelegram() async {
-      var url = Uri.parse("https://t.me/KHALEDSAWAN");
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
-    _openGitHub() async {
-      var url = Uri.parse("https://github.com/khaledsawan");
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
-    _openLinkedIn() async {
-      var url = Uri.parse("https://www.linkedin.com/in/khaled-sawan");
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: AppColors.mainColor,
-          body: Container(
-            margin: const EdgeInsets.only(left: 30, right: 30),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.04,
-                  ),
-                  Center(
-                    child: Container(
-                      width: width,
-                      height: height * 0.27,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                              image: AssetImage('image/me-20220826.jpg'))),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.1,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _sendingMails();
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      child: IconThanText(
-                        width: width,
-                        margin: const EdgeInsets.all(0),
-                        sizedWidth: 5,
-                        iconColor: AppColors.red,
-                        icon: Icons.email,
-                        text: 'khaled963sawan@gmail.com',
-                        color: AppColors.white,
-                        textColor: AppColors.textColor,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _makingPhoneCall();
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      child: IconThanText(
-                        width: width,
-                        margin: const EdgeInsets.all(0),
-                        sizedWidth: 5,
-                        iconColor: AppColors.green,
-                        icon: Icons.phone_android_outlined,
-                        text: '+963 0967184204',
-                        color: AppColors.white,
-                        textColor: AppColors.textColor,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _openTelegram();
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      child: IconThanText(
-                        margin: const EdgeInsets.all(0),
-                        sizedWidth: 5,
-                        width: width,
-                        iconColor: AppColors.blue,
-                        icon: Icons.telegram_outlined,
-                        text: 't.me/KHALEDSAWAN',
-                        color: AppColors.white,
-                        textColor: AppColors.textColor,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _openGitHub();
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      child: IconThanText(
-                        margin: const EdgeInsets.all(0),
-                        sizedWidth: 5,
-                        width: width,
-                        icon: SimpleIcons.github,
-                        text: 'github.com/khaledsawan',
-                        iconColor: Colors.purple,
-                        color: AppColors.white,
-                        textColor: AppColors.textColor,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _openLinkedIn();
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      child: IconThanText(
-                        margin: const EdgeInsets.all(0),
-                        sizedWidth: 5,
-                        width: width,
-                        icon: SimpleIcons.linkedin,
-                        text: 'https://www.linkedin.com/in/khaled-sawan',
-                        iconColor: AppColors.blue,
-                        color: AppColors.white,
-                        textColor: AppColors.textColor,
-                      ),
-                    ),
-                  ),
-                  const Divider(
-                    color: AppColors.border,
-                  ),
-                ],
+    return GetBuilder<BaseRepo>(builder: (controller) {
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(8),
+              width: width,
+              height: height * 0.27,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: const DecorationImage(
+                  image: NetworkImage(AppConstants.meImg),
+                ),
               ),
             ),
-          )),
-    );
+            _buildContactRow(
+              context: context,
+              icon: Icons.email,
+              text: controller.profileData.email!,
+              iconColor: AppColors.red,
+              textColor: AppColors.textColor,
+              url: 'mailto:${controller.profileData.email!}',
+            ),
+            _buildContactRow(
+              context: context,
+              icon: Icons.phone_android_outlined,
+              text: 'Phone Call',
+              iconColor: AppColors.green,
+              textColor: AppColors.textColor,
+              url: 'tel:(+963)${controller.profileData.phone!}',
+            ),
+            _buildContactRow(
+              context: context,
+              icon: Icons.telegram_outlined,
+              text: 'Telegram',
+              iconColor: AppColors.blue,
+              textColor: AppColors.textColor,
+              url: controller.profileData.telegram!,
+            ),
+            _buildContactRow(
+                context: context,
+                icon: SimpleIcons.github,
+                text: 'GitHub',
+                iconColor: Colors.purple,
+                textColor: AppColors.textColor,
+                url: controller.profileData.github!),
+            _buildContactRow(
+              context: context,
+              icon: SimpleIcons.linkedin,
+              text: "Linkedin",
+              iconColor: AppColors.blue,
+              textColor: AppColors.textColor,
+              url: controller.profileData.linkedin!,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

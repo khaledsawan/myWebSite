@@ -1,6 +1,8 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:khaledsawan/view/phone/portfolio_page_phone.dart';
 import '../../component/text/animated_text.dart';
+import '../../utils/AppConstants.dart';
 import 'contact_phone.dart';
 import 'me_page_phone.dart';
 import 'my_projects_page_phone.dart';
@@ -16,58 +18,11 @@ class _TapBarDefault2State extends State<TapBarDefault2>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int selectedItem = 0;
-  @override
-  void initState() {
-    _tabController = TabController(length: 4, vsync: this);
-    super.initState();
-  }
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TabBar(
-            indicatorColor: Colors.grey,
-            tabs: [
-              Tab(
-                  child: animatedText(
-                      text: 'Home', page: selectedItem == 0 ? true : false)),
-              Tab(
-                  child: animatedText(
-                      text: 'Projects',
-                      page: selectedItem == 1 ? true : false)),
-              Tab(
-                  child: animatedText(
-                      text: 'Portfolio', page: selectedItem == 2 ? true : false)),
-              Tab(
-                  child: animatedText(
-                      text: 'Contact', page: selectedItem ==3 ? true : false))
-            ],
-            controller: _tabController,
-            indicatorSize: TabBarIndicatorSize.label,
-            onTap: (index) {
-              setState(() {
-                selectedItem = index;
-              });
-            },
-          ),
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-             const MePage2(),
-              MyProjectsPagePhone(),
-              PortfolioPagePhone(),
-              const AboutUsPage(),
-            ],
-          ),
-        ),
-      ],
-    );
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -75,5 +30,77 @@ class _TapBarDefault2State extends State<TapBarDefault2>
     _tabController.dispose();
     super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(AppConstants.backImg),
+              ),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.0),
+                ),
+              ),
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TabBar(
+                  indicatorColor: Colors.grey,
+                  tabs: [
+                    _buildTab(text: 'Home', index: 0),
+                    _buildTab(text: 'Projects', index: 1),
+                    _buildTab(text: 'Portfolio', index: 2),
+                    _buildTab(text: 'Contact', index: 3),
+                  ],
+                  controller: _tabController,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  onTap: (index) {
+                    setState(() {
+                      selectedItem = index;
+                    });
+                  },
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      MePage2(),
+                      MyProjectsPagePhone(),
+                      PortfolioPagePhone(),
+                      AboutUsPage(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTab({required String text, required int index}) {
+    return Tab(
+      child: animatedText(
+        text: text,
+        page: selectedItem == index,
+      ),
+    );
+  }
 }
-//default

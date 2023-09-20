@@ -60,7 +60,7 @@ class IconThanText extends StatelessWidget {
              SizedBox(
               width: sizedWidth,
             ),
-            Text(text,style: TextStyle(color: textColor,fontSize: 16,fontWeight: FontWeight.w200),)
+            Text(text,style: TextStyle(color: textColor,fontSize: 16,fontWeight: FontWeight.w400),)
           ],
         ),
       ),
