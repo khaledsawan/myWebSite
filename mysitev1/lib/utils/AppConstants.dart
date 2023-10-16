@@ -7,7 +7,7 @@ class AppConstants {
   static const baseUrl = "https://online-free-course.000webhostapp.com";
 
   //data
-  static const meImg = '$baseUrl/CourseImages/me.jpg';
-  static const backImg = '$baseUrl/CourseImages/back_ground.jpg';
+  static const meImg = 'asset/image/me.jpg';
+  static const backImg = 'asset/image/back ground.png';
   static const profileData = '$baseUrl/api/getProfileData';
 }
